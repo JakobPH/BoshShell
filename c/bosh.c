@@ -28,7 +28,22 @@ char *gethostname(char *hostname)
 /* --- execute a shell command --- */
 int executeshellcmd (Shellcmd *shellcmd)
 {
+
+  //pid = fork();
+
   printshellcmd(shellcmd);
+
+  Cmd * cmd = shellcmd->the_cmds; 
+
+  char * in  = shellcmd->rd_stdin;
+  char * out = shellcmd->rd_stdout;
+  char ** args = cmd->cmd;
+
+  char * inArgs[] = {args[0],in,NULL};
+
+  printf("%s\n", args);
+
+  execvp(args[0],&inArgs[0]);
   //runcmd(shellcmd);
   //shellcmd->background ? forground : background);
   return 0;
