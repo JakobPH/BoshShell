@@ -1,0 +1,1 @@
+int runcmd(Shellcmd *shellcmd);
