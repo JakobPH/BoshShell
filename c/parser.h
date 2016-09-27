@@ -14,5 +14,6 @@ typedef struct _shellcmd {
 extern void init( void );
 extern int parse ( char *, Shellcmd *);
 extern int nexttoken( char *, char **);
+int parsecommand(char *cmdline, Shellcmd *shellcmd);
 extern int acmd( char *, Cmd **);
 extern int isidentifier( char * );

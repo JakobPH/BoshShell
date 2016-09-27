@@ -7,5 +7,8 @@ CC = gcc
 bosh: ${OBJS}
 	${CC} -o $@ ${OBJS} ${LIBS}
 
+pipe.o: pipe.h pipe.c
+	gcc -o pi pipe.h pipe.c
+
 clean:
 	rm -rf *o bosh
