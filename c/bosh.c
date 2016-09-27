@@ -13,6 +13,7 @@
 #include <readline/history.h>
 #include "parser.h"
 #include "print.h"
+#include "forback.h"
 
 /* --- symbolic constants --- */
 #define HOSTNAMEMAX 100
@@ -28,24 +29,26 @@ char *gethostname(char *hostname)
 /* --- execute a shell command --- */
 int executeshellcmd (Shellcmd *shellcmd)
 {
-
   //pid = fork();
 
   printshellcmd(shellcmd);
 
-  Cmd * cmd = shellcmd->the_cmds; 
+  Cmd * cmdlist = shellcmd->the_cmds; 
 
   char * in  = shellcmd->rd_stdin;
   char * out = shellcmd->rd_stdout;
-  char ** args = cmd->cmd;
+  char **args = cmdlist->cmd;
+  
+  Cmd *cmdlist = shellcmd->the_cmds;
+  cmdlist = cmdlist->next;
 
-  char * inArgs[] = {args[0],in,NULL};
+  printf("cmd: %s\n", *args);
+  printf("cmdlist: %s\n", cmdlist);
 
-  printf("%s\n", args);
-
-  execvp(args[0],&inArgs[0]);
+  //execvp(*args, &args[0]);
   //runcmd(shellcmd);
-  //shellcmd->background ? forground : background);
+  //foregroundcmd(*args, &args[0]);
+  shellcmd->background ? foregroundcmd(*args, &args[0]) : backgroundcmd(*args, &args[0]);
   return 0;
 }
 
@@ -71,7 +74,7 @@ int main(int argc, char* argv[]) {
 	  }
 	}
 	free(cmdline);
-      } else terminate = 1;
+      } else { terminate = 1; printf("terminating\n"); }
     }
     printf("Exiting bosh.\n");
   }    
@@ -94,5 +97,12 @@ int main(int argc, char* argv[]) {
       printf("%s ", *printcmd++); // print the cmd and arguments
     }
     printf("]\n");
+---------------
+ Cmd *cmdlist = shellcmd->the_cmds;
+  while(cmdlist != NULL)
+  {
+    char **cmd = cmdlist->cmd;
+    cmdlist = cmdlist->next;
+
 */
 

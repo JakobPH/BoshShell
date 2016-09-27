@@ -1,6 +1,6 @@
 all: bosh
 
-OBJS = parser.o print.o bosh.o
+OBJS = redirect.o forback.o parser.o print.o bosh.o
 LIBS= -lreadline -ltermcap
 CC = gcc
 

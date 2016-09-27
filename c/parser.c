@@ -34,7 +34,6 @@ int parsecommand(char *cmdline, Shellcmd *shellcmd)
 {
   int i, n;
   Cmd *cmd0;
-
   char *t = cmdline;
   char *tok;
 
