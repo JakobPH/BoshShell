@@ -63,7 +63,10 @@ int executeshellcmd (Shellcmd *shellcmd)
 
   shellcmd->background ? foregroundcmd(*args, &args[0]) : backgroundcmd(*args, &args[0]);
   close(fid);
+  dup(0, fid);
+
   close(fod);
+  dup(1, fod);
   return 0;
 }
 
